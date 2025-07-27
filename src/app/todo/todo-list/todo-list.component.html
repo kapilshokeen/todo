@@ -1,0 +1,38 @@
+@let todoList = todoList$ | async;
+<div class="ui relaxed divided list padded segment">
+  @for (todo of todoList?.data; track todo.id) {
+    <div class="item" routerLink="{{todo.id}}">
+      <a class="ui card">
+      <div class="content">
+        <div class="header">
+          {{todo.title}}
+          @if (todo.completed) {
+            <i class="thumbs up icon green"></i>
+          }
+          @else {
+            <i class="thumbs down icon red"></i>
+          }
+        </div>
+        <!-- <div class="description">
+          <p>{{todo.body}}</p>
+        </div> -->
+      </div>
+      <div class="extra content">
+        <div class="right floated author">
+          <img class="ui avatar image" [src]="todo.user.imageUrl"> {{todo.user.fullName}}
+        </div>
+      </div>
+    </a>
+    </div>
+  }
+  @empty {
+    @if (!todoList?.isLoading) {
+      <div class="ui big message">
+        <p>No data found...</p>
+      </div>
+    }
+  }
+  @if (todoList?.isLoading) {
+    <div class="ui active centered inline loader"></div>
+  }
+</div>
