@@ -1,0 +1,25 @@
+<div class="ui padded segment form">
+  <form (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label class="ui label" for="todo-add-input">
+        Todo title: 
+        <input
+          id="todo-add-input"
+          class="ui input"
+          type="text"
+          placeholder="Todo title..."
+          [formControl]="titleControl"
+        />
+      </label>
+    </div>
+    <button
+      class="ui mini button green"
+      [ngClass]="{
+        'disabled': titleControl.invalid
+      }"
+      type="submit"
+    >
+      Add Todo
+    </button>
+  </form>
+</div>

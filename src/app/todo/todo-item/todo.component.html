@@ -1,0 +1,48 @@
+@let todo = todoItem$ | async;
+<div class="ui padded segment">
+  <div class="ui card">
+    <div class="content">
+      @if (!todo?.isLoading) {
+        <div class="header">
+          {{todo?.data?.title}}
+          @if (todo?.data?.completed) {
+            <i class="thumbs up icon green"></i>
+          }
+          @else {
+            <i class="thumbs down icon red"></i>
+          }
+        </div>
+      }
+      @else {
+        <div class="ui active centered inline loader"></div>
+      }
+    </div>
+    <div class="content">
+      <h4 class="ui sub header">Activity</h4>
+      <div class="ui small feed">
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              <p>added on {{todo?.data?.createdOn | date: "dd-MM-yyyy hh:mm a"}}</p>
+              @if (todo?.data?.completedOn) {
+                <p>completed on {{todo?.data?.completedOn | date: "dd-MM-yyyy hh:mm a"}}</p>
+              }
+            </div>
+          </div>
+        </div>
+        <div class="event">
+          <div class="content">
+            <div class="summary">
+              <a>{{todo?.data?.user?.fullName}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="extra content">
+      <button class="ui button green" [ngClass]="{'disabled': todo?.data?.completed}" (click)="onCompleteClick(todo.data)">
+        {{todo?.data?.completed ? 'Completed' : 'Complete'}}
+      </button>
+    </div>
+  </div>
+</div>
